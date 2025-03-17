@@ -154,5 +154,19 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
             inputs['image_sizes'] = image_sizes
         return inputs
 
+
+    def prepare_inputs_for_generation_cd(self, input_ids, past_key_values=None,
+                                      inputs_embeds=None, **kwargs):
+        images = kwargs.pop("images_cd", None)
+        image_sizes = kwargs.pop("image_sizes", None)
+        inputs = super().prepare_inputs_for_generation(
+            input_ids, past_key_values=past_key_values, inputs_embeds=inputs_embeds, **kwargs
+        )
+        if images is not None:
+            inputs['images'] = images
+        if image_sizes is not None:
+            inputs['image_sizes'] = image_sizes
+        return inputs
+
 AutoConfig.register("llava_llama", LlavaConfig)
 AutoModelForCausalLM.register(LlavaConfig, LlavaLlamaForCausalLM)
