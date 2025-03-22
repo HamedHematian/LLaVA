@@ -165,6 +165,7 @@ class LlavaMetaForCausalLM(ABC):
         new_input_embeds = []
         new_labels = [] if labels is not None else None
         cur_image_idx = 0
+        print('input_ids', input_ids)
         for batch_idx, cur_input_ids in enumerate(input_ids):
             if (cur_input_ids == IMAGE_TOKEN_INDEX).sum() == 0:
                 # multimodal LLM, but the current sample is not multimodal
@@ -184,6 +185,7 @@ class LlavaMetaForCausalLM(ABC):
                     new_labels.append(labels[batch_idx])
                 cur_image_idx += 1
                 continue
+            print('XXXXX')
             image_token_indices = torch.where(cur_input_ids == IMAGE_TOKEN_INDEX)[0]
             print('image_token_indices', image_token_indices)
             cur_new_input_embeds = []
