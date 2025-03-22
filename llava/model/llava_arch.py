@@ -172,9 +172,11 @@ class LlavaMetaForCausalLM(ABC):
                 half_len = cur_input_ids.shape[0] // 2
                 cur_image_features = image_features[cur_image_idx]
                 cur_input_embeds_1 = self.get_model().embed_tokens(cur_input_ids[:half_len])
+                print('cur_input_embeds_1', cur_input_embeds_1[0,0])
                 cur_input_embeds_2 = self.get_model().embed_tokens(cur_input_ids[half_len:])
+                print('cur_input_embeds_2', cur_input_embeds_2[0,0])
                 cur_input_embeds = torch.cat([cur_input_embeds_1, cur_image_features[0:0], cur_input_embeds_2], dim=0)
-                print('cur_input_embeds', cur_input_embeds[0,0])
+                print('cur_input_embeds__', cur_input_embeds[0,0])
                 new_input_embeds.append(cur_input_embeds)
                 if labels is not None:
                     new_labels.append(labels[batch_idx])
