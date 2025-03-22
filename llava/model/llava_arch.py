@@ -169,6 +169,7 @@ class LlavaMetaForCausalLM(ABC):
         for batch_idx, cur_input_ids in enumerate(input_ids):
             print('batch cur_input_ids', cur_input_ids, IMAGE_TOKEN_INDEX)
             if (cur_input_ids == IMAGE_TOKEN_INDEX).sum() == 0:
+                print('OS')
                 # multimodal LLM, but the current sample is not multimodal
                 # FIXME: this is a hacky fix, for deepspeed zero3 to work
                 half_len = cur_input_ids.shape[0] // 2
