@@ -166,6 +166,10 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
 
     def prepare_inputs_for_generation(self, input_ids, past_key_values=None,
                                       inputs_embeds=None, **kwargs):
+
+        print("generate input")
+        print(list(kwargs.keys()))
+                                          
         images = kwargs.pop("images", None)
         image_sizes = kwargs.pop("image_sizes", None)
         inputs = super().prepare_inputs_for_generation(
@@ -179,6 +183,8 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
 
     def prepare_inputs_for_generation_cd(self, input_ids, past_key_values=None,
                                       inputs_embeds=None, **kwargs):
+        print("cd generate input")
+        print(list(kwargs.keys()))
         images = kwargs.pop("images_cd", None)
         image_sizes = kwargs.pop("image_sizes", None)
         inputs = super().prepare_inputs_for_generation(
