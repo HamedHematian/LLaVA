@@ -242,6 +242,7 @@ class LlavaMetaForCausalLM(ABC):
             max_len = max(x.shape[0] for x in new_input_embeds)
 
             new_input_embeds_align = []
+            print('YY1', new_input_embeds)
             for cur_new_embed in new_input_embeds:
                 cur_new_embed = torch.cat((cur_new_embed, torch.zeros((max_len - cur_new_embed.shape[0], cur_new_embed.shape[1]), dtype=cur_new_embed.dtype, device=cur_new_embed.device)), dim=0)
                 new_input_embeds_align.append(cur_new_embed)
@@ -265,6 +266,7 @@ class LlavaMetaForCausalLM(ABC):
                 attention_mask = torch.stack(new_attention_mask, dim=0)
                 assert attention_mask.shape == new_labels.shape
         else:
+            print('YY2', new_input_embeds)
             new_input_embeds = torch.stack(new_input_embeds, dim=0)
             if labels is not None:
                 new_labels  = torch.stack(new_labels, dim=0)
