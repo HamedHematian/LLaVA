@@ -77,12 +77,12 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
         )
         return_dict = return_dict if return_dict is not None else self.config.use_return_dict
 
-        print('forward')
+        # print('forward')
 
         input_ids, attention_mask, past_key_values, inputs_embeds, labels = self.prepare_inputs_labels_for_multimodal(input_ids, attention_mask, past_key_values, labels, images)
 
-        print('image', images[0, 0, 0, 0])
-        print('input_embeds', inputs_embeds[0, 0, 0])
+        # print('image', images[0, 0, 0, 0])
+        # print('input_embeds', inputs_embeds[0, 0, 0])
 
         # decoder outputs consists of (dec_features, layer_state, dec_hidden, dec_attn)
         outputs = self.model(
@@ -170,8 +170,8 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
     def prepare_inputs_for_generation(self, input_ids, past_key_values=None,
                                       inputs_embeds=None, **kwargs):
 
-        print("generate input")
-        print(list(kwargs.keys()))
+        # print("generate input")
+        # print(list(kwargs.keys()))
                                           
         images = kwargs.pop("images", None)
         image_sizes = kwargs.pop("image_sizes", None)
@@ -186,8 +186,8 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
 
     def prepare_inputs_for_generation_cd(self, input_ids, past_key_values=None,
                                       inputs_embeds=None, **kwargs):
-        print("cd generate input")
-        print(list(kwargs.keys()))
+        # print("cd generate input")
+        # print(list(kwargs.keys()))
         images = kwargs.pop("images_cd", None)
         image_sizes = kwargs.pop("image_sizes", None)
         inputs = super().prepare_inputs_for_generation(
