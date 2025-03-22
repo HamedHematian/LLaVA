@@ -167,6 +167,7 @@ class LlavaMetaForCausalLM(ABC):
         cur_image_idx = 0
         print('input_ids', input_ids)
         for batch_idx, cur_input_ids in enumerate(input_ids):
+            print('batch cur_input_ids', cur_input_ids, IMAGE_TOKEN_INDEX)
             if (cur_input_ids == IMAGE_TOKEN_INDEX).sum() == 0:
                 # multimodal LLM, but the current sample is not multimodal
                 # FIXME: this is a hacky fix, for deepspeed zero3 to work
