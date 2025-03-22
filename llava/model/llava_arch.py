@@ -154,13 +154,13 @@ class LlavaMetaForCausalLM(ABC):
         if type(images) is list or images.ndim == 5:
             concat_images = torch.cat([image for image in images], dim=0)
             image_features = self.encode_images(concat_images)
-            print('image_inside_arch', images[0,0,0])
-            print('image_features_inside_arch', image_features[0,0,0])
             split_sizes = [image.shape[0] for image in images]
             image_features = torch.split(image_features, split_sizes, dim=0)
             image_features = [x.flatten(0, 1) for x in image_features]
         else:
             image_features = self.encode_images(images)
+            print('image_inside_arch', images[0,0,0])
+            print('image_features_inside_arch', image_features[0,0,0])
 
         new_input_embeds = []
         new_labels = [] if labels is not None else None
