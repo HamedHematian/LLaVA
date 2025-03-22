@@ -191,6 +191,7 @@ class LlavaMetaForCausalLM(ABC):
                 cur_labels = labels[batch_idx]
                 cur_new_labels = []
                 assert cur_labels.shape == cur_input_ids.shape
+            print('image_token_indices_numl', image_token_indices)
             while image_token_indices.numel() > 0:
                 cur_image_features = image_features[cur_image_idx]
                 print('cur_image_features', cur_image_features[0,0,0])
