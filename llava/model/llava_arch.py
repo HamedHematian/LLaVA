@@ -159,7 +159,7 @@ class LlavaMetaForCausalLM(ABC):
             image_features = [x.flatten(0, 1) for x in image_features]
         else:
             image_features = self.encode_images(images)
-            print('image_inside_arch', images[0,0,0])
+            print('image_inside_arch', images[0,0,0,0])
             print('image_features_inside_arch', image_features[0,0,0])
 
         new_input_embeds = []
@@ -261,7 +261,7 @@ class LlavaMetaForCausalLM(ABC):
                 attention_mask = torch.cat((new_attn_mask_pad_left, attention_mask), dim=1)
                 assert attention_mask.shape == new_input_embeds.shape[:2]
 
-        print('final_embeds', new_input_embeds)
+        print('final_embeds', new_input_embeds[:,:,0])
 
         return None, attention_mask, past_key_values, new_input_embeds, new_labels
 
